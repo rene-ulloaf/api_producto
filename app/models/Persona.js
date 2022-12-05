@@ -14,7 +14,7 @@ const PersonaSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    apellido32: {
+    apellido2: {
         type: String
     },
     fecha_ingreso: {

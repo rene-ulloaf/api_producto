@@ -10,7 +10,7 @@ function listall(req, res) {
 
 function create(req, res) {
     let persona = new Persona(req.body);
-    Persona.save()
+    persona.save()
         .then(persona => 
             res.status(201).send({persona})
         ).catch(err => res.status(500).send({err}))
@@ -20,25 +20,25 @@ function create(req, res) {
 function show(req, res) {
     if(req.body.error) return res.status(500).send({error});
     if(!req.body.persona) return res.status(404).send({message: 'Not Found'});
-    let personas = req.body.Personas;
+    let personas = req.body.personas;
     return res.status(200).send({personas});
 }
 
 function update(req, res) {
     if(req.body.error) return res.status(500).send({error});
-    if(!req.body.Personas) return res.status(404).send({message: 'Not Found'});
-    let Persona = req.body.Personas[0];
-    Persona = Object.assign(Persona, req.body);
-    Persona.save()
-        .then(Persona => res.status(200).send({message: 'Persona Updated', Persona})
+    if(!req.body.personas) return res.status(404).send({message: 'Not Found'});
+    let persona = req.body.personas[0];
+    persona = Object.assign(persona, req.body);
+    persona.save()
+        .then(persona => res.status(200).send({message: 'Persona Updated', persona})
     ).catch(err => res.status(500).send({err}))
 }
 
 function deleted(req, res) {
     if(req.body.error) return res.status(500).send({error});
-    if(!req.body.Personas) return res.status(404).send({message: 'Not Found'});
-    req.body.Personas[0].remove()
-        .then(Persona => {
+    if(!req.body.personas) return res.status(404).send({message: 'Not Found'});
+    req.body.personas[0].remove()
+        .then(personas => {
             res.status(200).send({message:'Persona removed', Persona})
         }
         ).catch(err => res.status(500).send({err}));
@@ -47,9 +47,9 @@ function deleted(req, res) {
 function find(req, res, next){
     let query = {};
     query[req.params.key] = req.params.value
-    Persona.find(query).then(Personas => {
-        if(!Personas.length) return next();
-        req.body.Personas = Personas;
+    Persona.find(query).then(personas => {
+        if(!personas.length) return next();
+        req.body.personas = personas;
         return next();
     }).catch(err =>{
         req.body.error = err;

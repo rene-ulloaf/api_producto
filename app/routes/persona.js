@@ -8,5 +8,5 @@ router.get('/', PersonaController.listall)
       .get('/:key/:value', PersonaController.find, PersonaController.show)
       .put('/:key/:value', PersonaController.find, PersonaController.update)
       .delete('/:key/:value', PersonaController.find, PersonaController.deleted)
-
+      
 module.exports = router;
